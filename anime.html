@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime List | ROHIT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="anime-page">
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="container nav-container">
+            <div class="nav-logo">
+                <a href="index.html#home">ROHIT</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home" class="nav-link">HOME</a></li>
+                <li><a href="anime.html" class="nav-link active">ANIME</a></li>
+                <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+                <li><a href="index.html#connect" class="nav-link">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- GENRE NAVIGATION (Three Dots / Bar) -->
+    <div class="genre-nav-wrapper">
+        <button class="genre-toggle" aria-label="Toggle Genres">
+            <i class="fas fa-ellipsis-v"></i>
+        </button>
+        <div class="genre-menu">
+            <a href="#romance" class="genre-link">Romance</a>
+            <a href="#action" class="genre-link">Action</a>
+            <a href="#adventure" class="genre-link">Adventure</a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <h1 class="section-title" style="margin-top: 120px;">Anime <span>Collection</span></h1>
+
+        <!-- Romance Section -->
+        <section id="romance" class="anime-genre-section">
+            <h2 class="genre-title"><i class="fas fa-heart"></i> Romance</h2>
+            <div class="anime-grid">
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">Kimi ni Todoke</h3>
+                    <p class="anime-desc">A sweet story about a misunderstood girl finding friendship and love.</p>
+                </div>
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">Horimiya</h3>
+                    <p class="anime-desc">Exploring the hidden sides of two high school students.</p>
+                </div>
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">Your Name</h3>
+                    <p class="anime-desc">A beautiful tale of two teenagers connected by dreams.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Section -->
+        <section id="action" class="anime-genre-section">
+            <h2 class="genre-title"><i class="fas fa-fire"></i> Action</h2>
+            <div class="anime-grid">
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">Jujutsu Kaisen</h3>
+                    <p class="anime-desc">Sorcerers fighting curses to protect humanity.</p>
+                </div>
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">Demon Slayer</h3>
+                    <p class="anime-desc">A journey to save a sister and defeat demons.</p>
+                </div>
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">Attack on Titan</h3>
+                    <p class="anime-desc">Humanity's last stand against giant titans.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adventure Section -->
+        <section id="adventure" class="anime-genre-section">
+            <h2 class="genre-title"><i class="fas fa-compass"></i> Adventure</h2>
+            <div class="anime-grid">
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">One Piece</h3>
+                    <p class="anime-desc">The ultimate quest for the legendary treasure.</p>
+                </div>
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">Hunter x Hunter</h3>
+                    <p class="anime-desc">A young boy seeks to become a Hunter and find his father.</p>
+                </div>
+                <div class="anime-card fade-in">
+                    <h3 class="anime-name">Fairy Tail</h3>
+                    <p class="anime-desc">The adventures of a guild of powerful wizards.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ROHIT | DESIGNED & DEVELOPED BY ME.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Genre Menu
+        const genreToggle = document.querySelector('.genre-toggle');
+        const genreMenu = document.querySelector('.genre-menu');
+
+        genreToggle.addEventListener('click', () => {
+            genreMenu.classList.toggle('active');
+            genreToggle.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.genre-link').forEach(link => {
+            link.addEventListener('click', () => {
+                genreMenu.classList.remove('active');
+                genreToggle.classList.remove('active');
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
