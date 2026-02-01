@@ -15,12 +15,17 @@
             <div class="nav-logo">
                 <a href="#home">ROHIT</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link">HOME</a></li>
-                <li><a href="anime.html" class="nav-link">ANIME</a></li>
-                <li><a href="#about" class="nav-link">ABOUT</a></li>
-                <li><a href="#connect" class="nav-link">CONTACT</a></li>
-            </ul>
+            <div class="nav-menu-wrapper">
+                <button class="nav-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link">HOME</a></li>
+                    <li><a href="anime.html" class="nav-link">ANIME</a></li>
+                    <li><a href="#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="#connect" class="nav-link">CONTACT</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
@@ -206,6 +211,29 @@
     <!-- JAVASCRIPT -->
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script>
+        // ===== NAVIGATION TOGGLE =====
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                }
+            });
+
+            navLinks.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+
         // ===== TYPED.JS =====
         new Typed('.typed-text', {
             strings: ['tech.', 'crypto.', 'social connections.', 'continuous growth.'],
