@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Details | ROHIT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="details-page">
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="container nav-container">
+            <div class="nav-logo">
+                <a href="index.html#home">ROHIT</a>
+            </div>
+            <div class="nav-menu-wrapper">
+                <button class="nav-toggle" aria-label="Toggle Menu">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html#home" class="nav-link">HOME</a></li>
+                    <li><a href="anime.html" class="nav-link">ANIME</a></li>
+                    <li><a href="index.html#about" class="nav-link">ABOUT</a></li>
+                    <li><a href="index.html#connect" class="nav-link">CONTACT</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <div id="details-container" class="details-wrapper" style="margin-top: 120px;">
+            <!-- Content loaded via JS -->
+            <p class="loading">Loading anime details...</p>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ROHIT | DESIGNED & DEVELOPED BY ME.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <script src="anime-data.js"></script>
+    <script>
+        // Navigation Toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+        });
+
+        // Load Anime Details
+        function loadDetails() {
+            const params = new URLSearchParams(window.location.search);
+            const animeId = params.get('id');
+            const container = document.getElementById('details-container');
+
+            if (!animeId) {
+                container.innerHTML = '<h1>Error</h1><p>No anime selected.</p><a href="anime.html" class="cta-button">Back to List</a>';
+                return;
+            }
+
+            const anime = animeData.find(a => a.id === animeId);
+
+            if (!anime) {
+                container.innerHTML = '<h1>Error</h1><p>Anime not found.</p><a href="anime.html" class="cta-button">Back to List</a>';
+                return;
+            }
+
+            document.title = `${anime.title} | ROHIT`;
+
+            let downloadSection = '';
+            if (anime.type === 'movie') {
+                downloadSection = `
+                    <div class="download-section">
+                        <h3>Download Movie</h3>
+                        <a href="${anime.downloadLink}" class="download-btn movie-btn" target="_blank">
+                            <i class="fas fa-download"></i> Download Now
+                        </a>
+                    </div>
+                `;
+            } else {
+                downloadSection = `
+                    <div class="download-section">
+                        <h3>Download Episodes</h3>
+                        <div class="episode-list">
+                            ${anime.episodes.map(ep => `
+                                <a href="${ep.link}" class="download-btn ep-btn" target="_blank">
+                                    Episode ${ep.num}
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="details-header fade-in visible">
+                    <a href="anime.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Collection</a>
+                    <h1 class="anime-title-large">${anime.title}</h1>
+                    <div class="anime-meta">
+                        <span class="meta-tag"><i class="fas fa-tag"></i> ${anime.genre}</span>
+                        <span class="meta-tag"><i class="fas fa-film"></i> ${anime.type.toUpperCase()}</span>
+                    </div>
+                </div>
+
+                <div class="details-body fade-in visible" style="animation-delay: 0.2s">
+                    <div class="synopsis-card">
+                        <h2>Synopsis</h2>
+                        <p>${anime.synopsis}</p>
+                    </div>
+
+                    ${downloadSection}
+                </div>
+            `;
+        }
+
+        window.onload = loadDetails;
+    </script>
+</body>
+</html>
